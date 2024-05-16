@@ -36,3 +36,16 @@ variable "vpc_tags" {
     type = map
     default = {}
   }
+#### Public Subnets ##########################
+variable "public_subnet_cidrs" {
+    type = list
+    validation {
+      condition = length(var.public_subnet_cidrs) == 2
+      error_message = "please provide the valid 2 public subnet cidrs"
+
+    }
+}
+variable "public_subnet_cidr_tags" {
+    type = map
+    default = {}
+}

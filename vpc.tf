@@ -13,13 +13,28 @@ resource "aws_vpc" "main" {
   )
 }
 resource "aws_internet_gateway" "igw" {
-    vpc_id = aws_vpc.main.id
-    tags = merge(
+  vpc_id = aws_vpc.main.id
+  tags = merge(
     var.common_tags,
     var.igw_tags,
     {
       Name = local.resource_name
     }
-    )
+  )
+}
 
-    }  
+resource "aws_subnet" "public" {
+  count                   = length(var.public_subnet_cidrs)
+  map_public_ip_on_launch = true
+  vpc_id                  = aws_vpc.main.id
+  availability_zone       = local.az_names[count.index]
+  cidr_block              = var.public_subnet_cidrs[count.index]
+tags = merge(
+    var.common_tags,
+    var.igw_tags,
+    {
+      Name = "${local.resource_name}-public-${local.az_names[count.index]}"
+    }
+  )
+}
+
