@@ -45,7 +45,59 @@ variable "public_subnet_cidrs" {
 
     }
 }
+variable "private_subnet_cidrs" {
+    type = list
+    validation {
+      condition = length(var.private_subnet_cidrs) == 2
+      error_message = "please provide the valid 2 private subnet cidrs"
+
+    }
+}
+variable "database_subnet_cidrs" {
+    type = list
+    validation {
+      condition = length(var.database_subnet_cidrs) == 2
+      error_message = "please provide the valid 2 database subnet cidrs"
+
+    }
+}
+
+
+
+
+
 variable "public_subnet_cidr_tags" {
     type = map
     default = {}
+}
+variable "private_subnet_cidr_tags" {
+    type = map
+    default = {}
+}
+variable "database_subnet_cidr_tags" {
+    type = map
+    default = {}
+}
+#### NAT GATEWAY ####
+variable "nat_gateway_tags" {
+  type = map
+  default = {}
+
+  
+}
+#### Route Table ####
+variable "public_route_table_tags" {
+  type = map
+  default = {}
+  
+}
+variable "private_route_table_tags" {
+  type = map
+  default = {}
+  
+}
+variable "database_route_table_tags" {
+  type = map
+  default = {}
+  
 }
