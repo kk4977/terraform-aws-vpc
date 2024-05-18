@@ -40,13 +40,13 @@ tags = merge(
 resource "aws_subnet" "private" {
   count                   = length(var.private_subnet_cidrs)
   vpc_id                  = aws_vpc.main.id
-  availability_zone       = local.az_names[count.index]
+  availability_zone       = 
   cidr_block              = var.private_subnet_cidrs[count.index]
 tags = merge(
     var.common_tags,
     var.private_subnet_cidr_tags,
     {
-      Name = "${local.resource_name}-private-${local.az_names[count.index]}"
+      Name = "${local.resource_name}-private-${local.az_names[count.index]}" # merge it
     }
   )
 }
