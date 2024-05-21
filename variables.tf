@@ -1,5 +1,5 @@
 ###### PROJECT ###########################################################################################
-variable "project_names" {
+variable "project_name" {
   type = string
 
 }
